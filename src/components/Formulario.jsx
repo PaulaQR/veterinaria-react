@@ -14,12 +14,11 @@ const Formulario = () => {
     e.preventDefault();
     // Validación del Formulario
     if ([nombre, propietario, email, fecha, sintomas].includes("")) {
-      setError(true);
-    } else {
-      console.log("Todos llenos");
-    }
-    console.log("Enviando...");
-  };
+      setError(true)
+						return;
+    } 
+				setError(false)
+  }
 
   return (
     <div className="md:w-1/2 lg:w-2/5 mx-5">
@@ -36,7 +35,7 @@ const Formulario = () => {
       >
         {error && (
           <div className="bg-red-700 text-amber-50 text-center p-3 uppercase font-bold mb-3 rounded-md">
-            <p>TODOS LOS CAMPOS SON OBLIGATIORIOS</p>
+            <p>Todos los campos son obligatorios</p>
           </div>
         )}
 
