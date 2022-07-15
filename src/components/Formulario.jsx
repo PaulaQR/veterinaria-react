@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-
-const Formulario = () => {
+import Error from "./Error";
+const Formulario = ({pacientes, setPacientes}) => {
   // No pueden ir dentro de condicionales y tampoco se pueden poner después de un RETURN
   const [nombre, setNombre] = useState("");
   const [propietario, setPropietario] = useState("");
@@ -10,6 +10,13 @@ const Formulario = () => {
 
   const [error, setError] = useState(false);
 
+  const generarId = () => {
+    const random = Math.random().toString(36).substr(2);
+    const fecha = Date.now().toString(36)
+
+    return random + fecha
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Validación del Formulario
@@ -18,6 +25,29 @@ const Formulario = () => {
 						return;
     } 
 				setError(false)
+
+        // Objeto de Paciente
+        
+        const objetoPaciente = {
+          nombre,
+          propietario,
+          email,
+          fecha,
+          sintomas,
+          id: generarId()
+        }
+        // console.log(objetoPaciente)
+        // En React solo Utilizar metodos inmutables... 
+        // Método copia ... SpreadOperator 
+        setPacientes([...pacientes, objetoPaciente])
+
+        // Reiniciar el Form 
+        setNombre('')
+        setPropietario('')
+        setEmail('')
+        setFecha('')
+        setSintomas('') 
+
   }
 
   return (
@@ -33,11 +63,14 @@ const Formulario = () => {
         onSubmit={handleSubmit}
         className="bg-amber-50 shadow-xl rounded-lg py-10 px-5 mb-10"
       >
-        {error && (
-          <div className="bg-red-700 text-amber-50 text-center p-3 uppercase font-bold mb-3 rounded-md">
-            <p>Todos los campos son obligatorios</p>
-          </div>
-        )}
+        {error && 
+        <Error>
+          {/* // De esta manera (Utilizando HTML) se puede pasar vario contenido HTML  */}
+          <p>
+           Todos los campos son obligatorios
+          </p>
+        </Error>
+        }
 
         <div className="mb-5">
           <label
@@ -122,7 +155,7 @@ const Formulario = () => {
 
         <input
           type="submit"
-          className="bg-amber-700 w-full p-3 text-amber-50 uppercase font-bold hover:bg-amber-500 cursor-pointer transition-all rounded-md"
+          className="bg-amber-800 w-full p-3 text-amber-50 uppercase font-bold hover:bg-amber-700 cursor-pointer transition-all rounded-md"
           value="agregar paciente"
         />
       </form>
