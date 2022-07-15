@@ -28,13 +28,13 @@ const Paciente = ({ paciente }) => {
           type="button"
           className="py-2 px-10 bg-amber-800 hover:bg-amber-700 text-amber-50 font-bold uppercase rounded-lg"
         >
-          EDITAR
+          editar
         </button>
         <button
           type="button"
           className="py-2 px-10 bg-red-800 hover:bg-red-700 text-amber-50 font-bold uppercase rounded-lg"
         >
-          ELIMINAR
+          eliminar
         </button>
       </div>
     </div>
